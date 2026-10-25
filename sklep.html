@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eko-Sklep - EkoDom</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Arkusz stylów CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,8 +18,13 @@
                 <img src="photos/logo-ekodom.jpg" alt="EkoDom - Twój dom w zgodzie z naturą">
             </a>
         </div>
+
+        <button id="menu-toggle" aria-label="Otwórz menu">
+            <i class="bi bi-list"></i>
+        </button>
+
         <nav>
-            <ul>
+            <ul class="menu">
                 <li><a href="index.html">Start</a></li>
                 <li><a href="bazawiedzy.html">Baza wiedzy</a></li>
                 <li><a href="porady.html">Porady</a></li>
@@ -25,73 +33,84 @@
                 <li><a href="kontakt.html">Kontakt</a></li>
             </ul>
         </nav>
+
         <div class="header-actions">
+            <!-- Licznik w nagłówku -->
+            <a href="#sekcja-koszyk" class="cart-status-btn" title="Twój koszyk">
+                <i class="bi bi-cart3"></i> Koszyk: <span id="cart-counter">0</span> szt.
+            </a>
             <a href="logowanie.html" class="login-link">Zaloguj się</a>
         </div>
     </header>
 
-    <!-- GŁÓWNA TREŚĆ SKLEPU -->
     <main class="container">
         <section style="margin-top: 40px;">
             <h1>Eko-Sklep</h1>
             <p>Wybraliśmy dla Ciebie produkty, które ułatwiają codzienne życie w zgodzie z naturą i pomagają ograniczyć odpady.</p>
         </section>
 
-        <!-- UKŁAD SKLEPU: BOCZNE MENU + SIATKA PRODUKTÓW -->
+        <!-- UKŁAD SKLEPU: PRODUKTY + KOSZYK -->
         <div class="shop-layout">
             
-            <!-- Boczne filtry i kategorie -->
-            <aside class="shop-sidebar">
-                <h3>Kategorie produktów</h3>
-                <ul>
-                    <li><a href="#">Wszystkie produkty</a></li>
-                    <li><a href="#">Do kuchni</a></li>
-                    <li><a href="#">Do łazienki</a></li>
-                    <li><a href="#">Zero Waste</a></li>
-                    <li><a href="#">Naturalne środki czystości</a></li>
-                </ul>
-            </aside>
-
-            <!-- Lista produktów -->
+            <!-- Lista produktów z atrybutami data-* -->
             <section class="shop-products">
                 
                 <!-- Produkt 1 -->
-                <article class="product-card">
-                    <img src="https://placehold.co/240x240?text=Torba+bawełniana" alt="Wielorazowa torba bawełniana">
+                <article class="product-card" data-id="1" data-name="Torba bawełniana" data-price="19.99">
+                    <img src="photos/torbabawelniana.jpg" alt="Wielorazowa torba bawełniana">
                     <h3>Torba bawełniana</h3>
                     <p>Wytrzymała, wykonana w 100% z organicznej bawełny. Idealna na zakupy.</p>
                     <p class="product-price">19,99 zł</p>
-                    <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
+                    <button type="button" class="btn btn-primary btn-add-cart">Dodaj do koszyka</button>
                 </article>
 
                 <!-- Produkt 2 -->
-                <article class="product-card">
-                    <img src="https://placehold.co/240x240?text=Słomki+bambusowe" alt="Zestaw słomek bambusowych">
+                <article class="product-card" data-id="2" data-name="Słomki bambusowe (6 szt.)" data-price="24.99">
+                    <img src="photos/slomkibambusowe.jpg" alt="Zestaw słomek bambusowych">
                     <h3>Słomki bambusowe (6 szt.)</h3>
                     <p>Naturalna alternatywa dla plastiku z dołączonym czyścikiem w zestawie.</p>
                     <p class="product-price">24,99 zł</p>
-                    <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
+                    <button type="button" class="btn btn-primary btn-add-cart">Dodaj do koszyka</button>
                 </article>
 
                 <!-- Produkt 3 -->
-                <article class="product-card">
-                    <img src="https://placehold.co/240x240?text=Woskowijki" alt="Naturalne woskowijki">
+                <article class="product-card" data-id="3" data-name="Woskowijki (3 szt.)" data-price="39.90">
+                    <img src="photos/woskowijki.jpg" alt="Naturalne woskowijki">
                     <h3>Woskowijki (3 szt.)</h3>
                     <p>Wielorazowe owijki z wosku pszczelego do przechowywania świeżej żywności.</p>
                     <p class="product-price">39,90 zł</p>
-                    <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
+                    <button type="button" class="btn btn-primary btn-add-cart">Dodaj do koszyka</button>
                 </article>
 
                 <!-- Produkt 4 -->
-                <article class="product-card">
-                    <img src="https://placehold.co/240x240?text=Szczoteczka+bambusowa" alt="Bambusowa szczoteczka do zębów">
+                <article class="product-card" data-id="4" data-name="Szczoteczka bambusowa" data-price="12.50">
+                    <img src="photos/szczoteczkabambusowa.jpg" alt="Bambusowa szczoteczka do zębów">
                     <h3>Szczoteczka bambusowa</h3>
                     <p>Biodegradowalna rękojeść z naturalnego bambusa, włosie medium.</p>
                     <p class="product-price">12,50 zł</p>
-                    <button type="button" class="btn btn-primary">Dodaj do koszyka</button>
+                    <button type="button" class="btn btn-primary btn-add-cart">Dodaj do koszyka</button>
                 </article>
 
             </section>
+
+            <!-- Boczny panel koszyka -->
+            <aside class="shop-sidebar cart-box" id="sekcja-koszyk">
+                <h3><i class="bi bi-basket2"></i> Twój koszyk</h3>
+                
+                <div id="cart-items-container">
+                    <p id="empty-cart-msg" style="color: #666; font-size: 0.95rem;">Twój koszyk jest pusty.</p>
+                    <ul id="cart-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+                </div>
+
+                <div id="cart-summary" style="display: none; border-top: 1px solid #dce8dd; margin-top: 15px; padding-top: 15px;">
+                    <p style="font-size: 1.1rem; font-weight: bold; margin: 0 0 12px 0;">
+                        Do zapłaty: <span id="cart-total-price" style="color: #243e2b;">0.00 zł</span>
+                    </p>
+                    <button type="button" id="btn-clear-cart" class="btn btn-secondary" style="width: 100%; margin-bottom: 8px; font-size: 0.85rem; padding: 8px;">Wyczyść koszyk</button>
+                    <button type="button" id="btn-checkout" class="btn btn-primary" style="width: 100%;">Przejdź do kasy</button>
+                </div>
+            </aside>
+
         </div>
     </main>
 
@@ -123,5 +142,7 @@
         </div>
     </footer>
 
+    <!-- SKRYPT JS -->
+    <script src="script.js"></script>
 </body>
 </html>
