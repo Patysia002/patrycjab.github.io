@@ -57,6 +57,40 @@
                 <li><strong>Wybieraj szybki prysznic:</strong> Zużywa o połowę mniej wody niż kąpiel w wannie.</li>
             </ul>
         </section>
+    <section class="segregacja-section container">
+    <h2>Eko-Segregacja: Sprawdź, co gdzie wyrzucić</h2>
+    <p>Kliknij w wybrany kosz, aby zobaczyć, jakie odpady do niego należą:</p>
+
+    <!-- Przyciski / Kosze -->
+    <section class="segregacja-section container">
+    <h2>Eko-Segregacja: Sprawdź, co gdzie wyrzucić</h2>
+    <p>Kliknij w wybrany kosz, aby zobaczyć, co do niego należy – oraz jakie błędy popełniamy najczęściej:</p>
+
+    <!-- Przyciski / Kosze (dodany kosz na odpady zmieszane) -->
+    <div class="kosze-grid">
+        <button class="kosz-btn" data-kosz="papier">📦 Papier</button>
+        <button class="kosz-btn" data-kosz="plastik">♻️ Plastik / Metal</button>
+        <button class="kosz-btn" data-kosz="szklo">🍾 Szkło</button>
+        <button class="kosz-btn" data-kosz="bio">🍎 Bioodpady</button>
+        <button class="kosz-btn" data-kosz="zmieszane">⚫ Zmieszane</button>
+    </div>
+
+    <!-- Kontener wynikowy podzielony na dwie kolumny / sekcje -->
+    <div id="wynik-segregacji" class="form-card" style="margin-top: 25px; text-align: left; display: none; background-color: #f6faf5;">
+        <h3 id="tytul-kosza" style="color: #243e2b; margin-top: 0; border-bottom: 2px solid #cce0d0; padding-bottom: 10px;"></h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+            <div>
+                <h4 style="color: #2e7d32; margin-bottom: 8px;">✅ Co TUTAJ wrzucamy:</h4>
+                <ul id="lista-odpadow" style="padding-left: 20px; line-height: 1.6; color: #333;"></ul>
+            </div>
+            <div>
+                <h4 style="color: #c0392b; margin-bottom: 8px;">❌ Czego NIE wolno (częste błędy):</h4>
+                <ul id="lista-pulapek" style="padding-left: 20px; line-height: 1.6; color: #555;"></ul>
+            </div>
+        </div>
+    </div>
+</section>
     </main>
 
     <footer>

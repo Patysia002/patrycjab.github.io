@@ -65,28 +65,28 @@
                 <p class="section-subtitle">Wybierz interesujący Cię temat i dowiedz się, jak krok po kroku wprowadzić zmiany.</p>
                 <ul class="kategorie-grid">
                     <li class="kategoria-karta">
-                        <a href="artykul-pozeraczepradu.html">
+                        
                             <img src="photos/oszczedzanieenergii.jpg" alt="Energia" class="obszarydzialania">
                             <h3>Oszczędzanie energii</h3>
-                        </a>
+                        
                     </li>
                     <li class="kategoria-karta">
-                        <a href="artykul-woda.html">
+                        
                             <img src="photos/gospodarkawodna.jpg" alt="Woda" class="obszarydzialania">
                             <h3>Gospodarka wodna</h3>
-                        </a>
+                        
                     </li>
                     <li class="kategoria-karta">
-                        <a href="artykul-kompostownik.html">
+                        
                             <img src="photos/zerowaste.jpg" alt="Odpady" class="obszarydzialania">
                             <h3>Zero Waste &amp; Recykling</h3>
-                        </a>
+                        
                     </li>
                     <li class="kategoria-karta">
-                        <a href="bazawiedzy.html">
+                        
                             <img src="photos/srodkiczystosci.jpg" alt="Naturalne środki czystości" class="obszarydzialania">
                             <h3>Naturalne środki czystości</h3>
-                        </a>
+                        
                     </li>
                 </ul>
             </div>
@@ -127,6 +127,45 @@
                 </article>
             </div>
         </section>
+
+        <!-- SEKCJA GALERII -->
+<section class="galeria-section container">
+    <h2>Nasza Eko-Galeria</h2>
+    
+    <div class="slider-container">
+        <!-- Slajdy (czyste zdjęcia bez podpisów) -->
+        <div class="slide fade" style="display: block;">
+            <img src="photos/slajd1.jpg" alt="Go Green">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd2.jpg" alt="Save the Earth">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd3.jpg" alt="Tabliczki ekologiczne">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd4.jpg" alt="Sadzenie roślin">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd5.jpg" alt="Ruch No Plastic">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd6.jpg" alt="Edukacja ekologiczna">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd7.jpg" alt="Hasła ekologiczne">
+        </div>
+        <div class="slide fade" style="display: none;">
+            <img src="photos/slajd8.jpg" alt="Troska o Ziemię">
+        </div>
+    </div>
+
+    <!-- Przyciski nawigacji umieszczone pod zdjęciem -->
+    <div class="slider-controls">
+        <button type="button" class="slider-btn" onclick="plusSlides(-1)">&#10094; Poprzednie</button>
+        <button type="button" class="slider-btn" onclick="plusSlides(1)">Następne &#10095;</button>
+    </div>
+</section>
 
         <!-- SEKCJA KALKULATORA -->
         <section class="calc-teaser">
@@ -190,5 +229,6 @@
             menu.classList.toggle('active');
         });
 </script>
+<script src="script.js"></script>
 </body>
 </html>

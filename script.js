@@ -199,3 +199,106 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ===================================================
+       INTERAKTYWNA SEGREGACJA ODPADÓW (Z pułapkami i zmieszanymi)
+       =================================================== */
+    const bazaOdpadow = {
+        papier: {
+            tytuł: "📦 Niebieski kosz – Papier",
+            elementy: ["Gazety, czasopisma i ulotki", "Karton i tektura", "Zeszyty i papier biurowy", "Papierowe torby i pakunki"],
+            pulapki: ["Tłusty papier po pizzy", "Paragony z kas fiskalnych (papier termiczny)", "Zużyte ręczniki papierowe i chusteczki higieniczne", "Kartony po mleku i sokach (to tetrapak -> do żółtego!)"]
+        },
+        plastik: {
+            tytuł: "♻️ Żółty kosz – Tworzywa sztuczne i metal",
+            elementy: ["Butelki PET po napojach", "Plastikowe nakrętki", "Puszki aluminiowe i po konserwach", "Kartony po mleku i sokach (tetrapak)", "Plastikowe opakowania po kosmetykach"],
+            pulapki: ["Zużyte baterie i akumulatory (niebezpieczne odpady!)", "Mała elektronika i sprzęt AGD", "Zabrudzony olejem styropian gastronomiczny", "Pampersy i artykuły higieniczne"]
+        },
+        szklo: {
+            tytuł: "🍾 Zielony kosz – Szkło",
+            elementy: ["Szklane butelki po napojach i oliwie", "Szklane słoiki (bez nakrętek)", "Szklane flakony po perfumach"],
+            pulapki: ["Ceramika, fajans i porcelana", "Żarówki i świetlówki", "Szkło okularowe i żaroodporne", "Lustra i szyby samochodowe"]
+        },
+        bio: {
+            tytuł: "🍎 Brązowy kosz – Bioodpady",
+            elementy: ["Obierki warzyw i owoców", "Fusy po kawie i herbacie", "Skorupki jaj", "Zwiędłe kwiaty i liście", "Resztki jedzenia roślinnego"],
+            pulapki: ["Kości, mięso i ości ryb (przyciągają szkodniki)", "Odchody zwierząt domowych", "Leki i chemia", "Ziemia w doniczkach i kamienie"]
+        },
+        zmieszane: {
+            tytuł: "⚫ Czarny kosz – Odpady zmieszane (reszta, której nie da się odzyskać)",
+            elementy: ["Zużyte artykuły higieniczne (pieluchy, chusteczki nawilżane)", "Zawilgocony lub mocno zabrudzony papier", "Potłucena ceramika i żarówki", "Zwykłe worki po odkurzaczu i zimny popiół z pieca"],
+            pulapki: ["Sprzęt elektryczny i elektronika (musi trafić do PSZOK!)", "Baterie i akumulatory", "Leki przeterminowane (oddajemy do apteki)", "Odpady budowlane i gruz"]
+        }
+    };
+
+    const koszButtons = document.querySelectorAll('.kosz-btn');
+    const wynikSegregacji = document.querySelector('#wynik-segregacji');
+    const tytulKosza = document.querySelector('#tytul-kosza');
+    const listaOdpadow = document.querySelector('#lista-odpadow');
+    const listaPulapek = document.querySelector('#lista-pulapek');
+
+    if (koszButtons.length > 0 && wynikSegregacji && tytulKosza && listaOdpadow && listaPulapek) {
+        koszButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                koszButtons.forEach(b => b.classList.remove('aktywny'));
+                btn.classList.add('aktywny');
+
+                const kategoria = btn.getAttribute('data-kosz');
+                const dane = bazaOdpadow[kategoria];
+
+                if (dane) {
+                    tytulKosza.textContent = dane.tytuł;
+                    
+                    // Wypełnienie listy dozwolonych odpadów
+                    listaOdpadow.innerHTML = '';
+                    dane.elementy.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        listaOdpadow.appendChild(li);
+                    });
+
+                    // Wypełnienie listy pułapek (czego NIE wrzucać)
+                    listaPulapek.innerHTML = '';
+                    dane.pulapki.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        listaPulapek.appendChild(li);
+                    });
+
+                    wynikSegregacji.style.display = 'block';
+                    wynikSegregacji.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+    }
+
+});
+/* ===================================================
+       2. RUCHOMA GALERIA (SLIDER)
+       =================================================== */
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Automatyczna zmiana co 4 sekundy
+    setInterval(() => {
+        plusSlides(1);
+    }, 6000);
+
+    // Globalne funkcje do strzałek (przypisane do window, by działały z onclick w HTML)
+    window.plusSlides = function(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let slides = document.querySelectorAll('.slide');
+        if (slides.length === 0) return;
+
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+
+        slides.forEach(slide => slide.style.display = 'none');
+        slides[slideIndex - 1].style.display = 'block';
+    }
+;
