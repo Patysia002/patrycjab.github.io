@@ -6,6 +6,7 @@
     <title>Baza Wiedzy - EkoDom</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
 
@@ -75,6 +76,49 @@
         </div>
     </main>
 
+    <div class="eko-dane-wrapper">
+    <!-- SEKCJA 1: PARKI, POGODA I MAPA -->
+    <section class="eko-karta">
+        <div class="eko-naglowek">
+            <h2>🌿 Eko-Obiekty, Pogoda i Mapa</h2>
+            <p id="dzisiaj-info" class="data-badge"></p>
+            <p class="opis-sekcji">Kliknij wybrany Park Narodowy, aby sprawdzić aktualną pogodę, prognozę na 3 dni oraz lokalizację na mapie.</p>
+        </div>
+
+        <ul id="listaObiektow"></ul>
+
+        <div class="pogoda-mapa-grid">
+            <div id="pogoda" class="pogoda-box">
+                <p class="placeholder-tekst">👆 Wybierz park z listy powyżej, aby wyświetlić dane pogodowe.</p>
+            </div>
+            <div id="mapa"></div>
+        </div>
+    </section>
+
+    <section class="eko-karta">
+        <div class="eko-naglowek">
+            <h2>📊 Statystyki</h2>
+            <p class="opis-sekcji">Porównanie danych ekologicznych w formie interaktywnych wykresów.</p>
+        </div>
+
+        <div class="wykresy-grid">
+            <div class="wykres-box">
+                <h3>Produkcja miodu w pasiekach</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="wykresSlupkowy"></canvas>
+                </div>
+            </div>
+
+            <div class="wykres-box">
+                <h3>Powierzchnia Parków Narodowych</h3>
+                <div class="canvas-wrapper">
+                    <canvas id="wykresPowierzchni"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
     <footer>
         <div class="footer-container">
             <div>
@@ -86,6 +130,9 @@
             </div>
         </div>
     </footer>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "nazwa": "Białowieski Park Narodowy",
+    "wojewodztwo": "podlaskie",
+    "siedziba": "Białowieża",
+    "powierzchnia_km2": 105.17,
+    "odpady_rocznie_t": 18.5,
+    "lat": 52.703,
+    "lon": 23.873
+  },
+  {
+    "id": 2,
+    "nazwa": "Tatrzański Park Narodowy",
+    "wojewodztwo": "małopolskie",
+    "siedziba": "Zakopane",
+    "powierzchnia_km2": 211.97,
+    "odpady_rocznie_t": 64.2,
+    "lat": 49.251,
+    "lon": 19.981
+  },
+  {
+    "id": 3,
+    "nazwa": "Biebrzański Park Narodowy",
+    "wojewodztwo": "podlaskie",
+    "siedziba": "Osowiec-Twierdza",
+    "powierzchnia_km2": 592.23,
+    "odpady_rocznie_t": 22.0,
+    "lat": 53.35,
+    "lon": 22.60
+  },
+  {
+    "id": 4,
+    "nazwa": "Kampinoski Park Narodowy",
+    "wojewodztwo": "mazowieckie",
+    "siedziba": "Izabelin",
+    "powierzchnia_km2": 385.44,
+    "odpady_rocznie_t": 41.8,
+    "lat": 52.33,
+    "lon": 20.58
+  },
+  {
+    "id": 5,
+    "nazwa": "Słowiński Park Narodowy",
+    "wojewodztwo": "pomorskie",
+    "siedziba": "Smołdzino",
+    "powierzchnia_km2": 327.44,
+    "odpady_rocznie_t": 29.4,
+    "lat": 54.72,
+    "lon": 17.25
+  }
+]

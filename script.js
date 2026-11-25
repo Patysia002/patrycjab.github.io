@@ -302,3 +302,155 @@ document.addEventListener('DOMContentLoaded', () => {
         slides[slideIndex - 1].style.display = 'block';
     }
 ;
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dniTygodnia = [
+        "Niedziela", "Poniedziałek", "Wtorek", "Środa",
+        "Czwartek", "Piątek", "Sobota"
+    ];
+
+    function formatujDzien(dataISO) {
+        const d = new Date(dataISO);
+        return `${dniTygodnia[d.getDay()]} (${d.toLocaleDateString("pl-PL")})`;
+    }
+
+    const dzisiajEl = document.querySelector("#dzisiaj-info");
+    if (dzisiajEl) {
+        dzisiajEl.textContent = `Dzisiaj jest: ${formatujDzien(new Date().toISOString())}`;
+    }
+
+    const listaObiektow = document.querySelector("#listaObiektow");
+    const pogoda = document.querySelector("#pogoda");
+    const mapaEl = document.querySelector("#mapa");
+
+    let mapa = null;
+    let marker = null;
+
+    if (mapaEl && typeof L !== "undefined") {
+        mapa = L.map("mapa").setView([52.0, 19.0], 6);
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; OpenStreetMap"
+        }).addTo(mapa);
+    }
+
+    fetch("assets/data/eko-obiekty.json")
+        .then(res => res.json())
+        .then(obiekty => {
+            if (listaObiektow && pogoda) {
+                listaObiektow.innerHTML = "";
+                obiekty.forEach(obiekt => {
+                    const li = document.createElement("li");
+                    li.textContent = `${obiekt.nazwa} (${obiekt.wojewodztwo})`;
+                    li.style.cursor = "pointer";
+
+                    li.addEventListener("click", () => {
+                        document.querySelectorAll("#listaObiektow li").forEach(el => el.classList.remove("wybrany"));
+                        li.classList.add("wybrany");
+                        pogoda.innerHTML = "<p>Ładowanie danych...</p>";
+
+                        if (mapa) {
+                            if (marker) mapa.removeLayer(marker);
+                            marker = L.marker([obiekt.lat, obiekt.lon])
+                                .addTo(mapa)
+                                .bindPopup(`<strong>${obiekt.nazwa}</strong><br>Województwo: ${obiekt.wojewodztwo}<br>Siedziba: ${obiekt.siedziba}`);
+                            marker.openPopup();
+                            mapa.setView([obiekt.lat, obiekt.lon], 10);
+                        }
+
+                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${obiekt.lat}&longitude=${obiekt.lon}&current=temperature_2m,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3`;
+
+                        fetch(url)
+                            .then(r => r.json())
+                            .then(data => {
+                                pogoda.innerHTML = `
+                                    <h3>${obiekt.nazwa}</h3>
+                                    <p><strong>Województwo:</strong> ${obiekt.wojewodztwo}</p>
+                                    <p><strong>Siedziba:</strong> ${obiekt.siedziba}</p>
+                                    <hr>
+                                    <h4>Aktualna pogoda</h4>
+                                    <p><strong>Temperatura:</strong> ${data.current.temperature_2m} °C</p>
+                                    <p><strong>Prędkość wiatru:</strong> ${data.current.wind_speed_10m} km/h</p>
+                                    <hr>
+                                    <h4>Prognoza na 3 dni</h4>
+                                    <table>
+                                        <tr><th>Data</th><th>Min</th><th>Max</th><th>Opady</th></tr>
+                                        <tr>
+                                            <td>${formatujDzien(data.daily.time[0])}</td>
+                                            <td>${data.daily.temperature_2m_min[0]} °C</td>
+                                            <td>${data.daily.temperature_2m_max[0]} °C</td>
+                                            <td>${data.daily.precipitation_sum[0]} mm</td>
+                                        </tr>
+                                        <tr>
+                                            <td>${formatujDzien(data.daily.time[1])}</td>
+                                            <td>${data.daily.temperature_2m_min[1]} °C</td>
+                                            <td>${data.daily.temperature_2m_max[1]} °C</td>
+                                            <td>${data.daily.precipitation_sum[1]} mm</td>
+                                        </tr>
+                                        <tr>
+                                            <td>${formatujDzien(data.daily.time[2])}</td>
+                                            <td>${data.daily.temperature_2m_min[2]} °C</td>
+                                            <td>${data.daily.temperature_2m_max[2]} °C</td>
+                                            <td>${data.daily.precipitation_sum[2]} mm</td>
+                                        </tr>
+                                    </table>
+                                `;
+                            })
+                            .catch(() => {
+                                pogoda.innerHTML = "<p>Nie udało się pobrać danych pogodowych.</p>";
+                            });
+                    });
+
+                    listaObiektow.appendChild(li);
+                });
+            }
+
+            const ctxPow = document.getElementById("wykresPowierzchni");
+            if (ctxPow && typeof Chart !== "undefined") {
+                new Chart(ctxPow, {
+                    type: "bar",
+                    data: {
+                        labels: obiekty.map(o => o.nazwa),
+                        datasets: [{
+                            label: "Powierzchnia [km²]",
+                            data: obiekty.map(o => o.powierzchnia_km2),
+                            backgroundColor: "rgba(46, 204, 113, 0.7)",
+                            borderColor: "darkgreen",
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: "y",
+                        responsive: true,
+                        plugins: {
+                            title: { display: true, text: "Powierzchnia obiektów [km²]" }
+                        },
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+        })
+        .catch(err => console.error("Błąd JSON:", err));
+
+    const ctxStat = document.getElementById("wykresSlupkowy");
+    if (ctxStat && typeof Chart !== "undefined") {
+        new Chart(ctxStat, {
+            type: "bar",
+            data: {
+                labels: ["2023", "2024", "2025"],
+                datasets: [{
+                    label: "Produkcja miodu [tys. ton]",
+                    data: [18.2, 21.5, 23.0],
+                    backgroundColor: "rgba(54, 162, 235, 0.6)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+});
+
